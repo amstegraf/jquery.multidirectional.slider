@@ -8,7 +8,7 @@
  * http://www.opensource.org/licenses/gpl-3.0.html
  *
  * Launch  : February 2012
- * Version : 0.2.0
+ * Version : 0.1.0
  * Released: February 22, 2012 - 17:24pm
  */
 (function($){
