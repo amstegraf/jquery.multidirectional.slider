@@ -8,7 +8,7 @@
  * http://www.opensource.org/licenses/gpl-3.0.html
  *
  * Launch  : February 2012
- * Version : 0.1.0
+ * Version : 0.3.0
  * Released: February 22, 2012 - 17:24pm
  */
 (function($){
@@ -25,12 +25,21 @@
 				
 				self.setClipper();
 				self.setReel( options.orientation, options.width, options.height, options.margin );
-				
+
 				$.data(target, "gogoslide", inst);
-								
+				
+				target.children().hover(
+					function(){
+						self.stopSlider(target);
+					},
+					function(){
+						self.playSlider(target);
+					});
+				
 				if (options.autoplay) {
 					self.playSlider(target);
 				}
+				
 			},
 			
 			setClipper: function(){
@@ -56,10 +65,10 @@
 				if (!inst) return;
 				
 				inst.intervalID = window.setInterval(function () {
-					self.animate(target, inst);
-					if (options.stopOnEnd && inst.index === 0) {
+					self.animate(target, self.nextSlider(target));
+					if (options.stopOnEnd && (inst.index === self.lastSlider(target)) ) {
 						self.stopSlider(target);
-					}
+					}else if(inst.index === self.lastSlider(target)) self.goTo(self.firstSlider(target));
 				}, options.speed+1000);
 				$.data(target, "gogoslide", inst);
 			},
@@ -71,7 +80,7 @@
 				$.data(target, "gogoslide", inst);
 			},
 			
-			animate: function (target, inst) {
+			animate: function (target, slider) {
 				var inst = this.getInst(target);
 				if(!inst) return;
 				
@@ -80,35 +89,33 @@
 						if( options.type === 'jump' ) var speed = 500;
 						else var speed = options.speed;
 						
-						target.children("div").animate({marginLeft: self.nextSlider(target)}, speed, 'swing', function(){});
+						target.children("div").animate({marginLeft: slider}, speed, 'swing', function(){});
 						break;
 					case 'vertical':
 						if( options.type === 'jump' ) var speed = 500;
 						else var speed = options.speed;
 						
-						target.children("div").animate({marginTop: self.nextSlider(target)}, speed, 'swing', function(){});
+						target.children("div").animate({marginTop: slider}, speed, 'swing', function(){});
 						break;
 				};
 			},
 			
-			firstSlider: function (target) {
+			firstSlider: function (target) {				
+				return 1;
 	        },
 	        
-	        lastSlider: function (target) {
+	        lastSlider: function (target) {				
+	        	var lastSlider = ( target.find(".clipper").size() / options.frames );
+	        	
+	        	return lastSlider;
 	        },
 			
 			prevSlider: function (target) {
 				var inst = this.getInst(target);
 				if(!inst) return;
 				
-				switch ( options.orientation ){
-					case 'horizontal':
-						var previousPosition = target.children("div").css("margin-left").replace(/[^-\d\.]/g, '');
-						break;
-					case 'vertical':
-						var previousPosition = target.children("div").css("margin-top").replace(/[^-\d\.]/g, '');
-						break;
-				};
+				var previousPosition = (inst.index-1)*self.getViewport();
+				inst.index--;
 				
 				return previousPosition;
 			},
@@ -117,17 +124,31 @@
 				var inst = this.getInst(target);
 				if(!inst) return;
 				
-				switch ( options.orientation ){
-					case 'horizontal':
-						var nextPosition = self.prevSlider(target)-target.css("width").replace(/[^-\d\.]/g, '');
-						break;
-					case 'vertical':
-						var nextPosition = self.prevSlider(target)-target.css("height").replace(/[^-\d\.]/g, '');
-						break;
-				};			
+				var nextPosition = -( inst.index*self.getViewport() );
+				inst.index++;
 				
 				return nextPosition;
 				
+			},
+			
+			getViewport: function(){
+				switch(options.orientation){
+					case 'horizontal':
+						viewportSize = (options.width+options.margin*2)*options.frames;
+						break;
+					case 'vertical':
+						viewportSize = (options.height+options.margin*2)*options.frames;
+						break;
+				}
+				
+				return viewportSize;
+			},
+			
+			goTo: function(slider){
+				var inst = this.getInst(target);
+				if(!inst) return;
+				
+				inst.index = slider-1;
 			},
 			
 			newInstance: function(target) {
@@ -136,7 +157,7 @@
 					id: id, 
 					container: target,
 					uid: Math.floor(Math.random() * 99999999),
-					index: 0,
+					index: 1,
 					intervalID: null
 				}; 
 			},
