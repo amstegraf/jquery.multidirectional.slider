@@ -1,32 +1,34 @@
-GoGoSlide - jQuery Multidirectional Content Slider Plugin with Adjustable Viewport<br />
-Copyright (c) 2012 Aurelian Apostol | amstegraf<br />
-http://www.codbug.com/gogoslide<br /><br />
+###**GoGoSlide - jQuery Multidirectional Content Slider Plugin with Adjustable Viewport**
+Copyright (c) 2012 Aurelian Apostol | amstegraf
+http://www.codbug.com/gogoslide
 
-//Play settings<br />
-{autoplay: true,<br />
-frames: 1,<br />
-speed: 2000,<br />
-focus: 0,<br />
-stopOnEnd: false,<br />
-type: 'slide', // SLIDE OR JUMP}<br /><br />
-			
-//Display settings<br />
-{width: 193,<br />
-height: 249,<br />
-margin: 0,<br />
-orientation: 'horizontal', //vertical<br />
-anchors: false,}<br /><br />
-			
-//Controllers<br />
-{playButton: false,
-stopButton: false,
-previousButton: false,
-nextButton: false,}<br /><br />
+//Play settings
+{
+* autoplay: true,
+* frames: 1,
+* speed: 2000,
+* focus: 0,
+* stopOnEnd: false,
+* type: 'slide', // slide or jump
 
-//Debug Mode<br />
-{debug: false}
+//Display settings
+* width: 193,
+* height: 249,
+* margin: 0,
+* orientation: 'horizontal', //vertical
+* anchors: false,
 
-```<div id="name_container">
+//Controllers
+* playButton: false,
+* stopButton: false,
+* previousButton: false,
+* nextButton: false,
+
+//Debug Mode
+* debug: false
+}
+
+`<div id="name_container">
 	<div id="previous_button"><img src="" alt="" title="" /></div>
 	<div id="next_button"><img src="" alt="" title="" /></div>
 	<div id="controllers">
@@ -41,4 +43,4 @@ nextButton: false,}<br /><br />
 		<div class="clipper">
 		</div>
 	</div>
-</div>```
+</div>`
