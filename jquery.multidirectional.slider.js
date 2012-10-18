@@ -8,8 +8,8 @@
  * http://www.opensource.org/licenses/gpl-3.0.html
  *
  * Launch  : February 2012
- * Version : 0.3.1
- * Released: February 22, 2012 - 17:24pm
+ * Version : 0.3.2
+ * Released: Soon to be released
  */
 (function($){
 	function GoGoSlide(target, options){
@@ -17,16 +17,29 @@
 		target = $(target);
 
 		$.extend(self, {
-			startSliding: function( ){
+			startSliding: function(){
 				if (this.getInst(target)) {
 					return FALSE;
 				}
 				var inst = self.newInstance(target);
-
+				$.data(target, "gogoslide", inst);
+				
 				self.setClipper();
 				self.setReel( options.orientation, options.width, options.height, options.margin );
 
-				$.data(target, "gogoslide", inst);
+				if(options.previousButton){
+					target.find(options.previousButton).click(function(){
+						window.clearInterval(inst.intervalID);
+						self.goTo(self.prevSlider(target));
+					});
+				}
+				
+				if(options.nextButton){
+					target.find(options.nextButton).click(function(){
+						window.clearInterval(inst.intervalID);
+						self.goTo(self.nextSlider(target));
+					});
+				}
 
 				target.children().hover(
 						function(){
@@ -47,15 +60,18 @@
 			},
 
 			setReel: function( orientation, width, height, margin ){
+				var inst = this.getInst(target);
+				if (!inst) return;
+				
 				var clipperSum = target.find(".clipper").size();
 				switch( orientation ){
 				case 'horizontal':
 					target.css({width:options.frames*(width+margin*2),'overflow':'hidden'});
-					target.children().css({width:clipperSum*(width+margin*2)});
+					target.children("div#" + inst.id + "_reel").css({width:clipperSum*(width+margin*2)});
 					break;
 				case 'vertical':
 					target.css({height:options.frames*(height+margin*2), width:options.width+margin*2, 'overflow':'hidden'});
-					target.children().css({height:clipperSum*(height+margin*2)});
+					target.children("div#" + inst.id + "_reel").css({height:clipperSum*(height+margin*2)});
 					break;
 				};
 			},
@@ -69,7 +85,7 @@
 					if (options.stopOnEnd && (inst.index === self.lastSlider(target)) ) {
 						self.stopSlider(target);
 					}else if(inst.index === self.lastSlider(target)) self.goTo(self.firstSlider(target));
-				}, options.speed+1000);
+				}, options.speed+3000);
 				$.data(target, "gogoslide", inst);
 			},
 
@@ -89,13 +105,13 @@
 					if( options.type === 'jump' ) var speed = 500;
 					else var speed = options.speed;
 
-					target.children("div").animate({marginLeft: slider}, speed, 'swing', function(){});
+					target.children("div#" + inst.id + "_reel").animate({marginLeft: slider}, speed, 'swing', function(){});
 					break;
 				case 'vertical':
 					if( options.type === 'jump' ) var speed = 500;
 					else var speed = options.speed;
 
-					target.children("div").animate({marginTop: slider}, speed, 'swing', function(){});
+					target.children("div#" + inst.id + "_reel").animate({marginTop: slider}, speed, 'swing', function(){});
 					break;
 				};
 			},
@@ -116,7 +132,7 @@
 
 				var previousPosition = (inst.index-1)*self.getViewport(target);
 				inst.index--;
-
+				
 				return previousPosition;
 			},
 
@@ -126,7 +142,7 @@
 
 				var nextPosition = -( inst.index*self.getViewport(target) );
 				inst.index++;
-
+				
 				return nextPosition;
 
 			},
@@ -194,6 +210,12 @@
 			margin: 0,
 			orientation: 'horizontal', //vertical
 			anchors: false,
+			
+			//Controllers
+			playButton: false,
+			stopButton: false,
+			previousButton: false,
+			nextButton: false,
 
 			//Debug Mode
 			debug: false
