@@ -28,12 +28,13 @@ http://www.codbug.com/gogoslide
 * debug: false
 }
 
-`<div id="name_container">
-	<div id="previous_button"><img src="" alt="" title="" /></div>
-	<div id="next_button"><img src="" alt="" title="" /></div>
+<pre><code>
+<div id="name_container">
+	<div id="previous_button"><img src="img_src" alt="" title="" /></div>
+	<div id="next_button"><img src="img_src" alt="" title="" /></div>
 	<div id="controllers">
-		<div id="play_button"><img src="" alt="" title="" /></div>
-		<div id="stop_button"><img src="" alt="" title="" /></div>
+		<div id="play_button"><img src="img_src" alt="" title="" /></div>
+		<div id="stop_button"><img src="img_src" alt="" title="" /></div>
 	</div>
 	<div id="anchors">
 		<a href="#"><img src="" alt="" title="" /></a>
@@ -43,4 +44,5 @@ http://www.codbug.com/gogoslide
 		<div class="clipper">
 		</div>
 	</div>
-</div>`
+</div>
+</code></pre>
