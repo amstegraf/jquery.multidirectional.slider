@@ -2,6 +2,7 @@
 Copyright (c) 2012 Aurelian Apostol | amstegraf
 http://www.codbug.com/gogoslide
 
+<p>
 //Play settings
 {
 * autoplay: true,
@@ -27,9 +28,10 @@ http://www.codbug.com/gogoslide
 //Debug Mode
 * debug: false
 }
+</p>
 
 <pre><code>
-`<div id="name_container">
+``<div id="name_container">
 	<div id="previous_button"><img src="img_src" alt="" title="" /></div>
 	<div id="next_button"><img src="img_src" alt="" title="" /></div>
 	<div id="controllers">
@@ -44,5 +46,5 @@ http://www.codbug.com/gogoslide
 		<div class="clipper">
 		</div>
 	</div>
-</div>`
+</div>``
 </code></pre>
