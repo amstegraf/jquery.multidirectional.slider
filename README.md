@@ -2,7 +2,6 @@
 Copyright (c) 2012 Aurelian Apostol | amstegraf
 http://www.codbug.com/gogoslide
 
-<p>
 //Play settings
 {
 * autoplay: true,
@@ -28,23 +27,25 @@ http://www.codbug.com/gogoslide
 //Debug Mode
 * debug: false
 }
-</p>
 
-<pre><code>
-``<div id="name_container">
-	<div id="previous_button"><img src="img_src" alt="" title="" /></div>
-	<div id="next_button"><img src="img_src" alt="" title="" /></div>
-	<div id="controllers">
-		<div id="play_button"><img src="img_src" alt="" title="" /></div>
-		<div id="stop_button"><img src="img_src" alt="" title="" /></div>
-	</div>
-	<div id="anchors">
-		<a href="#"><img src="" alt="" title="" /></a>
-	</div>
-	
-	<div id="name_container_reel">	
-		<div class="clipper">
-		</div>
-	</div>
-</div>``
-</code></pre>
+<code html>
+    
+    <div id="name_container">
+        <div id="previous_button"><img src="img_src" alt="" title="" /></div>
+        <div id="next_button"><img src="img_src" alt="" title="" /></div>
+        
+        <div id="controllers">
+            <div id="play_button"><img src="img_src" alt="" title="" /></div>
+            <div id="stop_button"><img src="img_src" alt="" title="" /></div>
+        </div>
+        
+        <div id="anchors">
+            <a href="#"><img src="" alt="" title="" /></a>
+        </div>
+
+        <div id="name_container_reel">	
+            <div class="clipper">
+        </div>
+    </div>
+        
+</code>
